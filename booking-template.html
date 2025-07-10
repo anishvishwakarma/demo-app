@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Service - Allin Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="mobile-container">
+    <header class="app-header">
+      <div class="header-row">
+        <div class="header-logo-block">
+          <span class="logo">allin</span>
+          <span class="header-address">Booking Service</span>
+        </div>
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </header>
+    <main id="main-content">
+      <section class="booking-section">
+        <div class="booking-service-info">
+          <div class="booking-service-icon"><i class="fa-solid fa-user-tie"></i></div>
+          <div>
+            <div class="booking-service-name">Driver</div>
+            <div class="booking-service-price">₹15/km | ₹200/hr</div>
+          </div>
+        </div>
+        <div class="booking-map">
+          <div class="map-placeholder">[Map will appear here]</div>
+        </div>
+        <form class="booking-form">
+          <label>Pickup Location
+            <input type="text" placeholder="Enter pickup address" required />
+          </label>
+          <label>Drop Location
+            <input type="text" placeholder="Enter drop address" required />
+          </label>
+          <label>Date & Time
+            <input type="datetime-local" required />
+          </label>
+          <label>Number of Passengers
+            <input type="number" min="1" max="8" value="1" required />
+          </label>
+          <label>Special Instructions
+            <input type="text" placeholder="Any special instructions?" />
+          </label>
+        </form>
+        <div class="booking-estimate">
+          <span>Estimated Price:</span> <span class="booking-price">₹250</span>
+        </div>
+        <button class="primary-btn" id="next-btn">Next</button>
+        <div class="booking-summary" style="display:none;">
+          <h3>Confirm Booking</h3>
+          <div class="summary-details">
+            <!-- Summary details will be shown here -->
+          </div>
+          <button class="primary-btn" id="confirm-btn">Confirm Booking</button>
+        </div>
+      </section>
+    </main>
+    <nav class="bottom-nav">
+      <a class="nav-btn" href="profile.html"><span>Profile</span></a>
+      <a class="nav-btn" href="allinternet.html"><span>Home</span></a>
+      <a class="nav-btn" href="history.html"><span>History</span></a>
+    </nav>
+  </div>
+  <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Simple step logic for demo
+    document.getElementById('next-btn').onclick = function() {
+      document.querySelector('.booking-form').style.display = 'none';
+      document.querySelector('.booking-estimate').style.display = 'none';
+      document.getElementById('next-btn').style.display = 'none';
+      document.querySelector('.booking-summary').style.display = 'block';
+      document.querySelector('.summary-details').innerHTML = '<p>All booking details will be shown here for confirmation.</p>';
+    };
+    document.getElementById('confirm-btn').onclick = function() {
+      alert('Booking Confirmed!');
+    };
+  </script>
+</body>
+</html> 

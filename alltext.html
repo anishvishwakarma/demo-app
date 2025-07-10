@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allin Platform - AllText</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="mobile-container">
+    <header class="app-header">
+      <div class="header-row">
+        <div class="header-logo-block">
+          <span class="logo">allin</span>
+          <span class="header-address">south vihar, east road, delhi, 12457</span>
+        </div>
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </header>
+    <main id="main-content">
+      <div class="top-tabs">
+        <a class="top-tab" href="allinternet.html">allinternet</a>
+        <a class="top-tab active" href="alltext.html">alltext</a>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search" />
+      </div>
+      <section id="alltext-section" class="tab-section active">
+        <div class="messaging-list"></div>
+      </section>
+    </main>
+    <nav class="bottom-nav">
+      <a class="nav-btn" href="profile.html"><span>Profile</span></a>
+      <a class="nav-btn" href="allinternet.html"><span>Home</span></a>
+      <a class="nav-btn" href="history.html"><span>History</span></a>
+    </nav>
+  </div>
+  <div id="chat-modal" class="chat-modal">
+    <div class="chat-modal-content">
+      <header class="app-header chat-header">
+        <button class="back-btn" id="close-chat"><i class="fa-solid fa-arrow-left"></i></button>
+        <img src="" class="avatar chat-avatar" id="chat-avatar" />
+        <span class="chat-contact-name" id="chat-contact-name">Name</span>
+      </header>
+      <main class="chat-main">
+        <div class="chat-thread" id="chat-thread"></div>
+        <form class="chat-input-bar" id="chat-input-bar">
+          <input type="text" placeholder="Type a message..." id="chat-input" />
+          <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </main>
+    </div>
+  </div>
+  <script src="main.js"></script>
+  <script src="chat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</body>
+</html> 
