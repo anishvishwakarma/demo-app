@@ -23,7 +23,7 @@
         <a class="top-tab" href="alltext.html">alltext</a>
       </div>
       <div class="search-bar">
-        <input type="text" placeholder="Search local services..." />
+        <input type="text" placeholder="Search local services..." id="local-search-input" />
       </div>
       <section class="local-section">
         <div class="local-header-row" style="display:flex; justify-content:space-between; align-items:center; margin:18px 0 10px 0;">
@@ -51,32 +51,32 @@
           <a href="#" style="color:#00bfff; font-size:0.98rem; text-decoration:none; font-weight:600;">SEE ALL</a>
         </div>
         <div class="local-popular-grid">
-          <div class="local-popular-item">
+          <a href="booking.html?service=makeup" class="local-popular-item" style="text-decoration:none;">
             <div class="local-popular-icon"><i class="fa-solid fa-user-nurse"></i></div>
             <div class="local-popular-title">Makeup Artist</div>
-          </div>
-          <div class="local-popular-item">
+          </a>
+          <a href="booking.html?service=plumber" class="local-popular-item" style="text-decoration:none;">
             <div class="local-popular-icon"><i class="fa-solid fa-wrench"></i></div>
             <div class="local-popular-title">Plumber</div>
-          </div>
-          <div class="local-popular-item">
+          </a>
+          <a href="booking.html?service=electrician" class="local-popular-item" style="text-decoration:none;">
             <div class="local-popular-icon"><i class="fa-solid fa-bolt"></i></div>
             <div class="local-popular-title">Electrician</div>
-          </div>
-          <div class="local-popular-item">
+          </a>
+          <a href="booking.html?service=carpenter" class="local-popular-item" style="text-decoration:none;">
             <div class="local-popular-icon"><i class="fa-solid fa-hammer"></i></div>
             <div class="local-popular-title">Carpenter</div>
-          </div>
-          <div class="local-popular-item">
+          </a>
+          <a href="driver-booking.html" class="local-popular-item" style="text-decoration:none;">
             <div class="local-popular-icon"><i class="fa-solid fa-car"></i></div>
             <div class="local-popular-title">Driver</div>
-          </div>
-          <div class="local-popular-item">
+          </a>
+          <a href="booking.html?service=eventplanner" class="local-popular-item" style="text-decoration:none;">
             <div class="local-popular-icon"><i class="fa-solid fa-calendar-check"></i></div>
             <div class="local-popular-title">Event planner</div>
-          </div>
+          </a>
         </div>
-        <button class="add-local-btn">+ Add New Service/Work</button>
+        <button class="add-local-btn" onclick="addNewService()">+ Add New Service/Work</button>
       </section>
     </main>
     <nav class="bottom-nav">
@@ -87,5 +87,34 @@
   </div>
   <script src="main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    function addNewService() {
+      const serviceName = prompt('Enter service name:');
+      if (serviceName) {
+        const serviceType = prompt('Enter service type (e.g., Professional, Creative, Technical):');
+        if (serviceType) {
+          const price = prompt('Enter price range (e.g., ₹200-500):');
+          if (price) {
+            alert(`Service "${serviceName}" added successfully!\nType: ${serviceType}\nPrice: ${price}\n\n(Note: This is a demo. In a real app, this would be saved to the database.)`);
+          }
+        }
+      }
+    }
+    
+    // Search functionality for local services
+    document.getElementById('local-search-input').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const serviceItems = document.querySelectorAll('.local-popular-item, .local-new-item');
+      
+      serviceItems.forEach(item => {
+        const title = item.querySelector('.local-popular-title, .local-title').textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = searchTerm ? 'none' : 'block';
+        }
+      });
+    });
+  </script>
 </body>
 </html> 

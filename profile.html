@@ -138,6 +138,35 @@
         document.getElementById('profile-' + btn.dataset.tab).style.display = 'block';
       });
     });
+    
+    // Add click handlers for profile actions
+    document.addEventListener('DOMContentLoaded', function() {
+      // Make profile posts clickable
+      document.querySelectorAll('.profile-posts-grid img').forEach(img => {
+        img.style.cursor = 'pointer';
+        img.onclick = function() {
+          alert('Post clicked! In a real app, this would open the full post.');
+        };
+      });
+      
+      // Make people items clickable
+      document.querySelectorAll('.person-item').forEach(item => {
+        item.style.cursor = 'pointer';
+        item.onclick = function() {
+          const name = item.querySelector('.person-name').textContent;
+          alert(`Opening chat with ${name}...`);
+        };
+      });
+      
+      // Make event cards clickable
+      document.querySelectorAll('.event-card').forEach(card => {
+        card.style.cursor = 'pointer';
+        card.onclick = function() {
+          const title = card.querySelector('.event-title').textContent;
+          alert(`Event: ${title}\nIn a real app, this would show event details.`);
+        };
+      });
+    });
   </script>
 </body>
 </html> 

@@ -27,7 +27,13 @@
           </div>
         </div>
         <div class="booking-map">
-          <div class="map-placeholder">[Map will appear here]</div>
+          <div id="map" style="height: 200px; background: #f0f0f0; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px;">
+            <div style="text-align: center; color: #666;">
+              <i class="fa-solid fa-map-location-dot" style="font-size: 2rem; margin-bottom: 8px;"></i>
+              <div>Interactive map will appear here</div>
+              <div style="font-size: 0.8rem;">(Google Maps integration)</div>
+            </div>
+          </div>
         </div>
         <form class="booking-form">
           <label>Pickup Location
@@ -68,16 +74,112 @@
   <script src="main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
   <script>
+    // Store booking data
+    let bookingDetails = {};
+    
+    // Calculate estimate based on form inputs
+    function calculateEstimate() {
+      const pickup = document.querySelector('input[placeholder="Enter pickup address"]').value;
+      const drop = document.querySelector('input[placeholder="Enter drop address"]').value;
+      const passengers = document.querySelector('input[type="number"]').value;
+      
+      if (pickup && drop) {
+        // Simple estimate calculation (dummy)
+        const basePrice = 200;
+        const distanceMultiplier = 1.5;
+        const passengerMultiplier = passengers > 1 ? 1.2 : 1;
+        const estimatedPrice = Math.round(basePrice * distanceMultiplier * passengerMultiplier);
+        
+        document.querySelector('.booking-price').textContent = `₹${estimatedPrice}`;
+        return estimatedPrice;
+      }
+      return 250; // Default price
+    }
+    
+    // Update estimate on input change
+    document.querySelectorAll('.booking-form input').forEach(input => {
+      input.addEventListener('input', calculateEstimate);
+    });
+    
     document.getElementById('next-btn').onclick = function() {
+      // Collect form data
+      const form = document.querySelector('.booking-form');
+      const formData = new FormData(form);
+      
+      bookingDetails = {
+        id: Date.now(),
+        service: 'driver',
+        serviceName: 'Driver Booking',
+        pickup: formData.get('pickup') || document.querySelector('input[placeholder="Enter pickup address"]').value,
+        drop: formData.get('drop') || document.querySelector('input[placeholder="Enter drop address"]').value,
+        datetime: formData.get('datetime') || document.querySelector('input[type="datetime-local"]').value,
+        passengers: formData.get('passengers') || document.querySelector('input[type="number"]').value,
+        instructions: formData.get('instructions') || document.querySelector('input[placeholder="Any special instructions?"]').value,
+        price: calculateEstimate(),
+        date: new Date().toISOString(),
+        status: 'pending'
+      };
+      
+      // Show summary
       document.querySelector('.booking-form').style.display = 'none';
       document.querySelector('.booking-estimate').style.display = 'none';
       document.getElementById('next-btn').style.display = 'none';
       document.querySelector('.booking-summary').style.display = 'block';
-      document.querySelector('.summary-details').innerHTML = '<p>All booking details will be shown here for confirmation.</p>';
+      
+      const summaryHTML = `
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+          <h4 style="margin: 0 0 12px 0; color: #222;">Booking Summary</h4>
+          <div style="margin-bottom: 8px;"><strong>Pickup:</strong> ${bookingDetails.pickup}</div>
+          <div style="margin-bottom: 8px;"><strong>Drop:</strong> ${bookingDetails.drop}</div>
+          <div style="margin-bottom: 8px;"><strong>Date & Time:</strong> ${new Date(bookingDetails.datetime).toLocaleString()}</div>
+          <div style="margin-bottom: 8px;"><strong>Passengers:</strong> ${bookingDetails.passengers}</div>
+          ${bookingDetails.instructions ? `<div style="margin-bottom: 8px;"><strong>Instructions:</strong> ${bookingDetails.instructions}</div>` : ''}
+          <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #ddd;">
+            <strong>Total Price: ₹${bookingDetails.price}</strong>
+          </div>
+        </div>
+      `;
+      
+      document.querySelector('.summary-details').innerHTML = summaryHTML;
     };
+    
     document.getElementById('confirm-btn').onclick = function() {
-      alert('Booking Confirmed!');
+      // Store booking in localStorage
+      let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      bookings.push(bookingDetails);
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+      
+      alert('Booking Confirmed! You will be redirected to history page.');
+      setTimeout(() => {
+        window.location.href = 'history.html';
+      }, 1000);
     };
+    
+    // Demo map functionality
+    function initMap() {
+      const mapElement = document.getElementById('map');
+      if (mapElement) {
+        // In a real app, this would initialize Google Maps
+        // For demo purposes, we'll show a placeholder
+        mapElement.innerHTML = `
+          <div style="text-align: center; color: #666; padding: 20px;">
+            <i class="fa-solid fa-map-location-dot" style="font-size: 2rem; margin-bottom: 8px; color: #1976d2;"></i>
+            <div style="font-weight: 600; margin-bottom: 8px;">Interactive Map</div>
+            <div style="font-size: 0.9rem; margin-bottom: 12px;">Google Maps integration</div>
+            <div style="background: #f0f0f0; border-radius: 4px; padding: 8px; font-size: 0.8rem;">
+              <div>📍 Current Location: Delhi, India</div>
+              <div>🚗 Available drivers: 8 nearby</div>
+              <div>⏱️ Estimated arrival: 5-10 minutes</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    // Initialize map when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initMap, 500);
+    });
   </script>
 </body>
 </html> 

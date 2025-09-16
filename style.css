@@ -13,7 +13,6 @@ body {
   width: 360px;
   min-height: 100vh;
   background: #fff;
-  box-shadow: 0 0 32px rgba(0, 40, 120, 0.08);
   border-radius: 22px;
   overflow: hidden;
   display: flex;
@@ -40,7 +39,6 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: 1px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -73,42 +71,146 @@ main#main-content {
   margin-top: 18px;
 }
 .service-card {
-  background: #f0f2f5;
-  border-radius: 14px;
-  padding: 16px 0 8px 0;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  padding: 20px 0 12px 0;
   text-align: center;
-  color: #1976d2;
+  color: #1a1a1a;
   font-weight: 600;
   font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.03);
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-}
-.service-card:hover {
-  background: #e3eafc;
-}
-.service-card i {
-  font-size: 1.5rem;
-  margin-bottom: 6px;
-  display: block;
+  position: relative;
+  overflow: hidden;
 }
 
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s;
+}
+
+.service-card:hover::before {
+  left: 100%;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.35);
+}
+.service-card i {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+  display: block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Modern AI-era Button Styles */
 .primary-btn {
-  background: #1976d2;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   border: none;
-  border-radius: 8px;
-  padding: 12px 0;
+  border-radius: 16px;
+  padding: 14px 0;
   font-size: 1.1rem;
   font-weight: 600;
   margin-top: 12px;
   width: 100%;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.08);
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
+
+.primary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.primary-btn:hover::before {
+  left: 100%;
+}
+
 .primary-btn:hover {
-  background: #1251a3;
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+/* Modern Secondary Button */
+.secondary-btn {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #1a1a1a;
+  border-radius: 16px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.secondary-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Modern Action Button */
+.action-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Modern Icon Button */
+.icon-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #1a1a1a;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.icon-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 form#booking-form {
@@ -142,7 +244,6 @@ form#booking-form input, form#booking-form select {
 .post-card {
   background: #f0f2f5;
   border-radius: 14px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.03);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -175,7 +276,6 @@ form#booking-form input, form#booking-form select {
   background: #f0f2f5;
   border-radius: 12px;
   padding: 12px 14px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.03);
   color: #1976d2;
   font-weight: 600;
 }
@@ -196,7 +296,6 @@ form#booking-form input, form#booking-form select {
   padding: 16px 14px;
   color: #1976d2;
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.03);
 }
 .profile-name {
   font-size: 1.1rem;
@@ -257,10 +356,11 @@ form#booking-form input, form#booking-form select {
   display: flex;
   width: 100%;
   margin: 0 auto 10px auto;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  background: #f5f6fa;
-  border: 2px solid #e5e7eb;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 .top-tab {
   flex: 1;
@@ -269,46 +369,83 @@ form#booking-form input, form#booking-form select {
   font-size: 1rem !important;
   font-weight: 600;
   color: #222;
-  background: #f5f6fa;
+  background: transparent;
   border: none;
   border-radius: 0;
-  padding: 10px 0;
-  transition: background 0.2s, color 0.2s;
+  padding: 12px 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
   box-shadow: none;
   display: block;
-  border-right: 1.5px solid #e5e7eb;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 .top-tab:last-child {
   border-right: none;
 }
+.top-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.top-tab.active::before,
+.top-tab:hover::before {
+  opacity: 1;
+}
+
 .top-tab.active {
-  background: #222;
   color: #fff;
   z-index: 1;
 }
+
 .top-tab:hover {
-  background: #e5e7eb;
-  color: #1976d2;
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 .search-bar {
-  margin: 0 0 18px 0;
+  margin: 0 18px 18px 18px;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 .search-bar input {
   width: 100%;
-  padding: 8px 14px;
-  border-radius: 12px;
-  border: 2px solid #bbb;
-  font-size: 1.05rem;
-  font-weight: 700;
-  background: #f5f6fa;
+  padding: 14px 18px 14px 48px;
+  border-radius: 16px;
+  border: 2px solid #e5e7eb;
+  font-size: 1rem;
+  font-weight: 500;
+  background: #fff;
   color: #222;
   outline: none;
   box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.search-bar input:focus {
+  border-color: #667eea;
+  background: #fff;
+}
+.search-bar::before {
+  content: '🔍';
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: #667eea;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .big-icons-row {
@@ -320,7 +457,7 @@ form#booking-form input, form#booking-form select {
   margin-right: 18px;
 }
 .big-icon {
-  background: #1976d2;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
   border-radius: 50%;
   width: 70px;
@@ -331,24 +468,42 @@ form#booking-form input, form#booking-form select {
   justify-content: center;
   font-size: 1.8rem;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.08);
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin: 0 6px;
+  position: relative;
+  overflow: hidden;
 }
+
+.big-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.big-icon:hover::before {
+  left: 100%;
+}
+
 .big-icon span {
   font-size: 0.98rem;
   font-weight: 600;
   margin-top: 2px;
 }
+
 .big-icon:hover {
-  background: #1251a3;
+  transform: translateY(-4px) scale(1.05);
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
 }
 
 .card-section {
   background: #fff;
   border-radius: 22px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   margin-bottom: 22px;
   padding: 18px 18px 12px 18px;
   border: 1.5px solid #e5e7eb;
@@ -429,7 +584,6 @@ form#booking-form input, form#booking-form select {
   align-items: center;
   padding: 0 0;
   z-index: 100;
-  box-shadow: 0 -2px 12px rgba(0,40,120,0.04);
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
 }
@@ -451,15 +605,39 @@ form#booking-form input, form#booking-form select {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: color 0.2s, background 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   font-weight: 700;
   border-radius: 12px 12px 0 0;
   text-decoration: none !important;
+  position: relative;
+  overflow: hidden;
 }
-.bottom-nav .nav-btn.active, .bottom-nav .nav-btn:focus {
+
+.bottom-nav .nav-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.bottom-nav .nav-btn:hover::before,
+.bottom-nav .nav-btn.active::before,
+.bottom-nav .nav-btn:focus::before {
+  opacity: 1;
+}
+
+.bottom-nav .nav-btn:hover,
+.bottom-nav .nav-btn.active,
+.bottom-nav .nav-btn:focus {
   color: #fff;
-  background: #1976d2;
+  transform: translateY(-2px);
 }
 .bottom-nav .nav-btn i {
   font-size: 1.2rem;
@@ -494,7 +672,6 @@ form#booking-form input, form#booking-form select {
 .messaging-list {
   background: #fff;
   border-radius: 18px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   margin: 18px 0 0 0;
   padding: 0 0 8px 0;
   border: 1.5px solid #e5e7eb;
@@ -568,7 +745,6 @@ form#booking-form input, form#booking-form select {
   max-width: 100vw;
   background: #fff;
   border-radius: 22px;
-  box-shadow: 0 0 32px rgba(0, 40, 120, 0.12);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -583,6 +759,236 @@ form#booking-form input, form#booking-form select {
     height: 100vh;
     max-height: 100vh;
   }
+}
+
+/* Enhanced Chat Styles */
+.chat-header {
+  background: #1976d2;
+  color: #fff;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-contact-name {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.chat-status {
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.chat-status.online {
+  color: #4caf50;
+}
+
+.chat-status.offline {
+  color: #999;
+}
+
+.typing {
+  font-size: 0.8rem;
+  color: #4caf50;
+  font-style: italic;
+}
+
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f5f6fa;
+}
+
+.chat-thread {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chat-msg {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.chat-msg.from-me {
+  justify-content: flex-end;
+}
+
+.chat-msg.from-them {
+  justify-content: flex-start;
+}
+
+.msg-bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.chat-msg.from-me .msg-bubble {
+  background: #1976d2;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-msg.from-them .msg-bubble {
+  background: #fff;
+  color: #222;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 4px;
+}
+
+.msg-text {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.msg-time {
+  font-size: 0.7rem;
+  opacity: 0.7;
+  text-align: right;
+}
+
+.chat-input-bar {
+  background: #fff;
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.chat-input-bar input {
+  flex: 1;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  outline: none;
+  background: #f9f9f9;
+}
+
+.chat-input-bar input:focus {
+  border-color: #1976d2;
+  background: #fff;
+}
+
+.chat-input-bar button {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.chat-input-bar button:hover {
+  background: #1565c0;
+}
+
+/* Enhanced Message List Styles */
+.messaging-list {
+  padding: 16px;
+}
+
+.message-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+}
+
+.message-item:hover {
+  background: #f8f9fa;
+  border-color: #e5e7eb;
+}
+
+.message-item .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.msg-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.msg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.msg-name {
+  font-weight: 600;
+  color: #222;
+  font-size: 1rem;
+}
+
+.msg-time {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.msg-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.msg-status-text {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.msg-status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.msg-status.online {
+  background: #4caf50;
+}
+
+.msg-status.offline {
+  background: #ccc;
 }
 
 /* Profile page styles */
@@ -637,7 +1043,6 @@ form#booking-form input, form#booking-form select {
   aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   background: #f5f6fa;
 }
 
@@ -652,7 +1057,6 @@ form#booking-form input, form#booking-form select {
   background: #f5f6fa;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -686,7 +1090,6 @@ form#booking-form input, form#booking-form select {
   align-items: center;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   padding: 10px 14px;
   position: relative;
 }
@@ -745,7 +1148,6 @@ form#booking-form input, form#booking-form select {
   align-items: center;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   padding: 12px 16px;
   gap: 14px;
 }
@@ -784,7 +1186,6 @@ form#booking-form input, form#booking-form select {
   justify-content: center;
   background: #f0f2f5;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   width: 90px;
   height: 90px;
   min-width: 0;
@@ -814,7 +1215,6 @@ form#booking-form input, form#booking-form select {
   font-weight: 600;
   margin-top: 18px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.08);
   transition: background 0.2s;
 }
 .add-local-btn:hover {
@@ -834,7 +1234,6 @@ form#booking-form input, form#booking-form select {
   justify-content: center;
   background: #f0f2f5;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0,40,120,0.04);
   width: 90px;
   height: 90px;
   min-width: 0;

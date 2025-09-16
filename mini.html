@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allin Platform - Mini Services</title>
+  <link rel="icon" type="image/png" href="images/favicon.ico.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .mini-services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 16px;
+    }
+    .mini-service-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .mini-service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+    .mini-service-card:hover::before {
+      left: 100%;
+    }
+    .mini-service-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .mini-service-icon {
+      font-size: 2rem;
+      color: #1976d2;
+      margin-bottom: 12px;
+    }
+    .mini-service-title {
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 8px;
+    }
+    .mini-service-price {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .mini-service-providers {
+      color: #1976d2;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .mini-service-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mini-service-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    }
+    .mini-header {
+      padding: 16px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .mini-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 4px;
+    }
+    .mini-subtitle {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-container">
+    <header class="app-header">
+      <div class="header-row">
+        <div class="header-logo-block">
+          <span class="logo">allin</span>
+          <span class="header-address">Mini Services</span>
+        </div>
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </header>
+    <main id="main-content">
+      <div class="top-tabs">
+        <a class="top-tab" href="allinternet.html">allinternet</a>
+        <a class="top-tab" href="alltext.html">alltext</a>
+      </div>
+      <div class="mini-header">
+        <div class="mini-title">Mini Apps Platform</div>
+        <div class="mini-subtitle">Access specialized services without installing separate apps</div>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <input type="text" placeholder="Search mini apps..." id="mini-search-input" />
+      </div>
+              <div class="mini-services-grid">
+          <div class="mini-service-card" onclick="openMiniApp('hotel', 'Hotel Booking')">
+            <div class="mini-service-icon"><i class="fa-solid fa-hotel"></i></div>
+            <div class="mini-service-title">Hotel Booking</div>
+            <div class="mini-service-price">Compare prices from 50+ hotels</div>
+            <div class="mini-service-providers">Booking.com, Hotels.com, OYO</div>
+            <button class="mini-service-btn">Compare & Book</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('flight', 'Flight Booking')">
+            <div class="mini-service-icon"><i class="fa-solid fa-plane"></i></div>
+            <div class="mini-service-title">Flight Booking</div>
+            <div class="mini-service-price">Best deals from 20+ airlines</div>
+            <div class="mini-service-providers">Skyscanner, Kayak, Expedia</div>
+            <button class="mini-service-btn">Search Flights</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('food', 'Food Delivery')">
+            <div class="mini-service-icon"><i class="fa-solid fa-utensils"></i></div>
+            <div class="mini-service-title">Food Delivery</div>
+            <div class="mini-service-price">From 100+ restaurants</div>
+            <div class="mini-service-providers">Zomato, Swiggy, Uber Eats</div>
+            <button class="mini-service-btn">Order Food</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('movie', 'Movie Tickets')">
+            <div class="mini-service-icon"><i class="fa-solid fa-film"></i></div>
+            <div class="mini-service-title">Movie Tickets</div>
+            <div class="mini-service-price">All theaters, best prices</div>
+            <div class="mini-service-providers">BookMyShow, Paytm, Amazon</div>
+            <button class="mini-service-btn">Book Tickets</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('taxi', 'Taxi Booking')">
+            <div class="mini-service-icon"><i class="fa-solid fa-taxi"></i></div>
+            <div class="mini-service-title">Taxi Booking</div>
+            <div class="mini-service-price">Compare Uber, Ola, Rapido</div>
+            <div class="mini-service-providers">Uber, Ola, Rapido, Meru</div>
+            <button class="mini-service-btn">Book Taxi</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('beauty', 'Beauty Services')">
+            <div class="mini-service-icon"><i class="fa-solid fa-spa"></i></div>
+            <div class="mini-service-title">Beauty Services</div>
+            <div class="mini-service-price">Salon & spa at home</div>
+            <div class="mini-service-providers">UrbanClap, Housejoy, Glam</div>
+            <button class="mini-service-btn">Book Service</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('repair', 'Appliance Repair')">
+            <div class="mini-service-icon"><i class="fa-solid fa-tools"></i></div>
+            <div class="mini-service-title">Appliance Repair</div>
+            <div class="mini-service-price">Expert technicians</div>
+            <div class="mini-service-providers">UrbanClap, Housejoy, JustDial</div>
+            <button class="mini-service-btn">Book Repair</button>
+          </div>
+          <div class="mini-service-card" onclick="openMiniApp('fitness', 'Fitness Classes')">
+            <div class="mini-service-icon"><i class="fa-solid fa-dumbbell"></i></div>
+            <div class="mini-service-title">Fitness Classes</div>
+            <div class="mini-service-price">Online & offline classes</div>
+            <div class="mini-service-providers">Cult.fit, HealthifyMe, Fitpass</div>
+            <button class="mini-service-btn">Join Class</button>
+          </div>
+        </div>
+    </main>
+    <nav class="bottom-nav">
+      <a class="nav-btn" href="profile.html"><span>Profile</span></a>
+      <a class="nav-btn" href="allinternet.html"><span>Home</span></a>
+      <a class="nav-btn" href="history.html"><span>History</span></a>
+    </nav>
+  </div>
+  <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Search functionality for mini apps
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.getElementById('mini-search-input');
+      const miniServiceCards = document.querySelectorAll('.mini-service-card');
+      
+      searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        
+        miniServiceCards.forEach(card => {
+          const title = card.querySelector('.mini-service-title').textContent.toLowerCase();
+          const description = card.querySelector('.mini-service-price').textContent.toLowerCase();
+          const providers = card.querySelector('.mini-service-providers').textContent.toLowerCase();
+          
+          if (title.includes(searchTerm) || description.includes(searchTerm) || providers.includes(searchTerm)) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = searchTerm ? 'none' : 'block';
+          }
+        });
+      });
+    });
+    
+    function openMiniApp(appType, appName) {
+      // Show mini app interface
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 3000;
+      `;
+      
+      const appContent = document.createElement('div');
+      appContent.style.cssText = `
+        background: #fff;
+        border-radius: 16px;
+        padding: 24px;
+        max-width: 90vw;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+      `;
+      
+      // Get app data based on type
+      const appData = getMiniAppData(appType);
+      
+      appContent.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2 style="margin: 0; color: #222;">${appName}</h2>
+          <button onclick="this.closest('div[style*=\'position: fixed\']').remove()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #666;">×</button>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+          <div style="background: #f5f6fa; padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+            <h3 style="margin: 0 0 8px 0; color: #1976d2;">Compare Prices</h3>
+            <p style="margin: 0; color: #666; font-size: 0.9rem;">${appData.description}</p>
+          </div>
+          
+          <div style="display: grid; gap: 12px;">
+            ${appData.providers.map(provider => `
+              <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                  <div style="font-weight: 600; color: #222;">${provider.name}</div>
+                  <div style="color: #666; font-size: 0.9rem;">${provider.price}</div>
+                  <div style="color: #1976d2; font-size: 0.8rem;">${provider.features}</div>
+                </div>
+                <button onclick="bookMiniApp('${appType}', '${provider.name}', '${provider.price}')" style="background: #1976d2; color: #fff; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer;">
+                  Book Now
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <div style="background: #f8f9fa; padding: 16px; border-radius: 8px; border-left: 4px solid #1976d2;">
+          <h4 style="margin: 0 0 8px 0; color: #222;">Why use Allin Platform?</h4>
+          <ul style="margin: 0; padding-left: 20px; color: #666; font-size: 0.9rem;">
+            <li>No need to install separate apps</li>
+            <li>Compare prices from multiple providers</li>
+            <li>Use your existing Allin account</li>
+            <li>Unified booking history</li>
+          </ul>
+        </div>
+      `;
+      
+      modal.appendChild(appContent);
+      document.body.appendChild(modal);
+      
+      // Close modal when clicking outside
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.remove();
+        }
+      });
+    }
+    
+    function getMiniAppData(appType) {
+      const apps = {
+        hotel: {
+          description: 'Compare prices from 50+ hotels and booking platforms',
+          providers: [
+            { name: 'Booking.com', price: '₹2,500/night', features: 'Free cancellation, Best price guarantee' },
+            { name: 'Hotels.com', price: '₹2,300/night', features: 'Rewards program, Price match' },
+            { name: 'OYO', price: '₹1,800/night', features: 'Budget friendly, Instant booking' }
+          ]
+        },
+        flight: {
+          description: 'Find the best deals from 20+ airlines and travel agencies',
+          providers: [
+            { name: 'Skyscanner', price: '₹8,500', features: 'Price alerts, Flexible dates' },
+            { name: 'Kayak', price: '₹8,200', features: 'Price comparison, Travel tools' },
+            { name: 'Expedia', price: '₹8,800', features: 'Package deals, Loyalty points' }
+          ]
+        },
+        food: {
+          description: 'Order from 100+ restaurants with quick delivery',
+          providers: [
+            { name: 'Zomato', price: '₹150 delivery', features: '30 min delivery, Live tracking' },
+            { name: 'Swiggy', price: '₹120 delivery', features: 'Free delivery, Restaurant reviews' },
+            { name: 'Uber Eats', price: '₹180 delivery', features: 'Premium restaurants, Fast delivery' }
+          ]
+        },
+        movie: {
+          description: 'Book tickets for all theaters with best prices',
+          providers: [
+            { name: 'BookMyShow', price: '₹200/ticket', features: 'All theaters, Seat selection' },
+            { name: 'Paytm', price: '₹180/ticket', features: 'Cashback offers, Quick booking' },
+            { name: 'Amazon', price: '₹220/ticket', features: 'Premium experience, Food combos' }
+          ]
+        },
+        taxi: {
+          description: 'Compare prices from multiple ride-sharing services',
+          providers: [
+            { name: 'Uber', price: '₹150', features: 'Premium cars, Safety features' },
+            { name: 'Ola', price: '₹130', features: 'Multiple car types, Share rides' },
+            { name: 'Rapido', price: '₹80', features: 'Bike taxis, Quick pickup' }
+          ]
+        },
+        beauty: {
+          description: 'Book salon and spa services at home or visit',
+          providers: [
+            { name: 'UrbanClap', price: '₹500', features: 'At home service, Trained professionals' },
+            { name: 'Housejoy', price: '₹450', features: 'Quality guarantee, Multiple services' },
+            { name: 'Glam', price: '₹600', features: 'Premium experience, Luxury brands' }
+          ]
+        },
+        repair: {
+          description: 'Find expert technicians for appliance repair',
+          providers: [
+            { name: 'UrbanClap', price: '₹300', features: 'Expert technicians, Warranty' },
+            { name: 'Housejoy', price: '₹250', features: 'Same day service, Quality parts' },
+            { name: 'JustDial', price: '₹200', features: 'Local experts, Quick response' }
+          ]
+        },
+        fitness: {
+          description: 'Join online and offline fitness classes',
+          providers: [
+            { name: 'Cult.fit', price: '₹1,500/month', features: 'Multiple classes, Expert trainers' },
+            { name: 'HealthifyMe', price: '₹800/month', features: 'Personal coaching, Diet plans' },
+            { name: 'Fitpass', price: '₹1,200/month', features: 'Gym access, Class bookings' }
+          ]
+        }
+      };
+      
+      return apps[appType] || apps.hotel;
+    }
+    
+    function bookMiniApp(appType, providerName, price) {
+      const booking = {
+        id: Date.now(),
+        type: 'mini-app',
+        appType: appType,
+        provider: providerName,
+        price: price,
+        date: new Date().toISOString(),
+        status: 'pending'
+      };
+      
+      let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      bookings.push(booking);
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+      
+      alert(`Booking confirmed with ${providerName}!\nPrice: ${price}\n\nYou can track this booking in your history.`);
+      
+      // Close the modal
+      document.querySelector('div[style*="position: fixed"]').remove();
+    }
+  </script>
+</body>
+</html>

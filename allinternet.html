@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Allin Platform - AllInternet</title>
+  <link rel="icon" type="image/png" href="images/favicon.ico.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
         <a class="top-tab" href="alltext.html">alltext</a>
       </div>
       <div class="search-bar">
-        <input type="text" placeholder="Search" />
+        <input type="text" placeholder="Search services..." id="search-input" />
       </div>
       <section id="allinternet-section" class="tab-section active">
         <div class="big-icons-row">
@@ -38,19 +39,43 @@
               <div class="internet-service-icon"><i class="fa-solid fa-user-tie"></i></div>
               <div class="internet-service-title">Driver</div>
             </a>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-truck"></i></div><div class="internet-service-title">Truck</div></div>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-truck-pickup"></i></div><div class="internet-service-title">Pickup</div></div>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-car"></i></div><div class="internet-service-title">Rental</div></div>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-truck-moving"></i></div><div class="internet-service-title">3-wheeler</div></div>
+            <a class="internet-service-item" href="booking.html?service=truck" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-truck"></i></div>
+              <div class="internet-service-title">Truck</div>
+            </a>
+            <a class="internet-service-item" href="booking.html?service=pickup" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-truck-pickup"></i></div>
+              <div class="internet-service-title">Pickup</div>
+            </a>
+            <a class="internet-service-item" href="booking.html?service=rental" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-car"></i></div>
+              <div class="internet-service-title">Rental</div>
+            </a>
+            <a class="internet-service-item" href="booking.html?service=threewheeler" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-truck-moving"></i></div>
+              <div class="internet-service-title">3-wheeler</div>
+            </a>
           </div>
         </div>
         <div class="card-section">
           <div class="card-title">General</div>
           <div class="internet-services-grid">
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-wrench"></i></div><div class="internet-service-title">Plumber</div></div>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-hands-helping"></i></div><div class="internet-service-title">Helper</div></div>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-hammer"></i></div><div class="internet-service-title">Carpenter</div></div>
-            <div class="internet-service-item"><div class="internet-service-icon"><i class="fa-solid fa-bolt"></i></div><div class="internet-service-title">Electrician</div></div>
+            <a class="internet-service-item" href="booking.html?service=plumber" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-wrench"></i></div>
+              <div class="internet-service-title">Plumber</div>
+            </a>
+            <a class="internet-service-item" href="booking.html?service=helper" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-hands-helping"></i></div>
+              <div class="internet-service-title">Helper</div>
+            </a>
+            <a class="internet-service-item" href="booking.html?service=carpenter" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-hammer"></i></div>
+              <div class="internet-service-title">Carpenter</div>
+            </a>
+            <a class="internet-service-item" href="booking.html?service=electrician" style="text-decoration:none;">
+              <div class="internet-service-icon"><i class="fa-solid fa-bolt"></i></div>
+              <div class="internet-service-title">Electrician</div>
+            </a>
           </div>
         </div>
       </section>
@@ -63,5 +88,21 @@
   </div>
   <script src="main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Search functionality
+    document.getElementById('search-input').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      const serviceItems = document.querySelectorAll('.internet-service-item');
+      
+      serviceItems.forEach(item => {
+        const title = item.querySelector('.internet-service-title').textContent.toLowerCase();
+        if (title.includes(searchTerm)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = searchTerm ? 'none' : 'block';
+        }
+      });
+    });
+  </script>
 </body>
 </html> 

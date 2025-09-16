@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allin Platform - Posts</title>
+  <link rel="icon" type="image/png" href="images/favicon.ico.png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Modern AI-era Design System */
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --glass-bg: rgba(255, 255, 255, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --text-primary: #1a1a1a;
+      --text-secondary: #666;
+      --text-muted: #999;
+      --border-radius: 16px;
+      --border-radius-sm: 12px;
+    }
+
+    /* Posts page specific styles */
+    .posts-page {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .posts-page .mobile-container {
+      background: transparent;
+    }
+
+    .posts-container {
+      padding: 20px 16px;
+      background: transparent;
+    }
+
+    /* Modern Create Post Button */
+    .create-post-btn {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      border-radius: var(--border-radius);
+      padding: 16px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 24px;
+      width: 100%;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .create-post-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .create-post-btn:hover::before {
+      left: 100%;
+    }
+
+    .create-post-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.35);
+    }
+
+    .create-post-btn i {
+      font-size: 1.2rem;
+      color: #667eea;
+    }
+
+    /* Modern Stories Section */
+    .stories-section {
+      margin-bottom: 32px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 20px;
+    }
+
+    .stories-title {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stories-title::before {
+      content: '✨';
+      font-size: 1.1rem;
+    }
+
+    .stories-row {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .stories-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .story-item {
+      flex-shrink: 0;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .story-item:hover {
+      transform: scale(1.05);
+    }
+
+    .story-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      background: linear-gradient(45deg, #667eea, #764ba2) padding-box,
+                  linear-gradient(45deg, #667eea, #764ba2) border-box;
+      margin-bottom: 8px;
+      object-fit: cover;
+    }
+
+    .story-username {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      max-width: 70px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    /* Modern Post Cards */
+    .post-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      margin-bottom: 20px;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .post-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .post-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 16px;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .post-user-info {
+      flex: 1;
+    }
+
+    .post-username {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .post-time {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .post-more {
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background 0.2s;
+    }
+
+    .post-more:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .post-content {
+      padding: 20px;
+    }
+
+    .post-text {
+      color: var(--text-primary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      font-size: 1rem;
+    }
+
+    .post-image {
+      width: 100%;
+      border-radius: var(--border-radius-sm);
+      margin-bottom: 16px;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .post-action-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: var(--border-radius-sm);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .post-action-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .post-action-btn.liked {
+      color: #ff4757;
+      background: rgba(255, 71, 87, 0.1);
+    }
+
+    .post-action-btn i {
+      font-size: 1.1rem;
+    }
+
+    .expiry-badge {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* Modern Floating Action Button */
+    .fab {
+      position: fixed;
+      bottom: 100px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    .fab:hover {
+      transform: scale(1.1);
+    }
+
+    /* Loading Animation */
+    .loading-skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .posts-container {
+        padding: 16px 12px;
+      }
+      
+      .post-header {
+        padding: 16px;
+      }
+      
+      .post-content {
+        padding: 16px;
+      }
+      
+      .post-actions {
+        padding: 12px 16px;
+      }
+    }
+  </style>
+</head>
+<body class="posts-page">
+  <div class="mobile-container">
+    <header class="app-header">
+      <div class="header-row">
+        <div class="header-logo-block">
+          <span class="logo">allin</span>
+          <span class="header-address">Posts & Stories</span>
+        </div>
+        <button class="menu-btn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </header>
+    <main id="main-content">
+      <div class="top-tabs">
+        <a class="top-tab" href="allinternet.html">allinternet</a>
+        <a class="top-tab" href="alltext.html">alltext</a>
+      </div>
+      <div class="posts-container">
+        <button class="create-post-btn" onclick="createPost()">
+          <i class="fa-solid fa-plus"></i>
+          <span>Share your moment</span>
+        </button>
+        
+        <div class="stories-section">
+          <div class="stories-title">Today's Stories</div>
+          <div class="stories-row">
+            <div class="story-item" onclick="viewStory('user1')">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="story-avatar">
+              <div class="story-username">John</div>
+            </div>
+            <div class="story-item" onclick="viewStory('user2')">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="story-avatar">
+              <div class="story-username">Sarah</div>
+            </div>
+            <div class="story-item" onclick="viewStory('user3')">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" class="story-avatar">
+              <div class="story-username">Mike</div>
+            </div>
+            <div class="story-item" onclick="viewStory('user4')">
+              <img src="https://randomuser.me/api/portraits/women/46.jpg" alt="User" class="story-avatar">
+              <div class="story-username">Emma</div>
+            </div>
+            <div class="story-item" onclick="viewStory('user5')">
+              <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="User" class="story-avatar">
+              <div class="story-username">Alex</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="posts-feed">
+          <!-- Posts will be dynamically loaded here -->
+        </div>
+      </div>
+    </main>
+    
+    <!-- Modern Floating Action Button -->
+    <button class="fab" onclick="createPost()">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+    
+    <nav class="bottom-nav">
+      <a class="nav-btn" href="profile.html"><span>Profile</span></a>
+      <a class="nav-btn" href="allinternet.html"><span>Home</span></a>
+      <a class="nav-btn" href="history.html"><span>History</span></a>
+    </nav>
+  </div>
+  <script src="main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Enhanced dummy posts data
+    const dummyPosts = [
+      {
+        id: 1,
+        username: 'John Designer',
+        avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+        text: 'Just completed an amazing interior design project! The transformation is absolutely stunning 🏠✨ #InteriorDesign #Transformation',
+        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400',
+        likes: 24,
+        comments: 8,
+        time: '2 hours ago',
+        liked: false
+      },
+      {
+        id: 2,
+        username: 'Sarah Photographer',
+        avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+        text: 'Beautiful sunset captured today! Nature never fails to amaze me with its breathtaking colors 🌅 #Photography #Sunset #Nature',
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400',
+        likes: 45,
+        comments: 12,
+        time: '4 hours ago',
+        liked: true
+      },
+      {
+        id: 3,
+        username: 'Mike Chef',
+        avatar: 'https://randomuser.me/api/portraits/men/45.jpg',
+        text: 'New recipe alert! Homemade pasta with fresh ingredients and authentic Italian flavors 🍝 #Cooking #Italian #Homemade',
+        image: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=400',
+        likes: 67,
+        comments: 15,
+        time: '6 hours ago',
+        liked: false
+      },
+      {
+        id: 4,
+        username: 'Emma Traveler',
+        avatar: 'https://randomuser.me/api/portraits/women/46.jpg',
+        text: 'Exploring the hidden gems of the city today! Found this amazing street art that tells a story 🎨 #Travel #StreetArt #Adventure',
+        image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400',
+        likes: 89,
+        comments: 23,
+        time: '8 hours ago',
+        liked: true
+      }
+    ];
+
+    function renderPosts() {
+      const postsFeed = document.getElementById('posts-feed');
+      postsFeed.innerHTML = '';
+      
+      dummyPosts.forEach(post => {
+        const postElement = createPostElement(post);
+        postsFeed.appendChild(postElement);
+      });
+    }
+
+    function createPostElement(post) {
+      const postDiv = document.createElement('div');
+      postDiv.className = 'post-card';
+      postDiv.innerHTML = `
+        <div class="post-header">
+          <img src="${post.avatar}" alt="${post.username}" class="post-avatar">
+          <div class="post-user-info">
+            <div class="post-username">${post.username}</div>
+            <div class="post-time">
+              <i class="fa-regular fa-clock"></i>
+              ${post.time} <span class="expiry-badge">24h</span>
+            </div>
+          </div>
+          <div class="post-more">
+            <i class="fa-solid fa-ellipsis-h"></i>
+          </div>
+        </div>
+        <div class="post-content">
+          <div class="post-text">${post.text}</div>
+          <img src="${post.image}" alt="Post" class="post-image">
+        </div>
+        <div class="post-actions">
+          <button class="post-action-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${post.id})">
+            <i class="fa-${post.liked ? 'solid' : 'regular'} fa-heart"></i>
+            <span>${post.likes}</span>
+          </button>
+          <button class="post-action-btn" onclick="addComment(${post.id})">
+            <i class="fa-regular fa-comment"></i>
+            <span>${post.comments}</span>
+          </button>
+          <button class="post-action-btn" onclick="sharePost(${post.id})">
+            <i class="fa-solid fa-share"></i>
+            <span>Share</span>
+          </button>
+        </div>
+      `;
+      return postDiv;
+    }
+
+    function toggleLike(postId) {
+      const post = dummyPosts.find(p => p.id === postId);
+      if (post) {
+        post.liked = !post.liked;
+        post.likes += post.liked ? 1 : -1;
+        renderPosts();
+        
+        // Add animation effect
+        const btn = event.currentTarget;
+        btn.style.transform = 'scale(1.2)';
+        setTimeout(() => {
+          btn.style.transform = 'scale(1)';
+        }, 200);
+      }
+    }
+
+    function addComment(postId) {
+      const comment = prompt('Add a comment:');
+      if (comment) {
+        const post = dummyPosts.find(p => p.id === postId);
+        if (post) {
+          post.comments += 1;
+          renderPosts();
+          alert('Comment added successfully! 💬');
+        }
+      }
+    }
+
+    function sharePost(postId) {
+      alert('Post shared successfully! 📤');
+    }
+
+    function viewStory(userId) {
+      alert(`Viewing ${userId}'s story... 📖`);
+    }
+
+    function createPost() {
+      const text = prompt('What\'s on your mind? Share your moment...');
+      if (text) {
+        const newPost = {
+          id: Date.now(),
+          username: 'You',
+          avatar: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+          text: text,
+          image: null,
+          likes: 0,
+          comments: 0,
+          time: 'Just now',
+          liked: false
+        };
+        dummyPosts.unshift(newPost);
+        renderPosts();
+        alert('Post created successfully! 🎉');
+      }
+    }
+
+    // Initialize posts on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      renderPosts();
+    });
+  </script>
+</body>
+</html>

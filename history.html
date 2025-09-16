@@ -23,9 +23,12 @@
         <a class="top-tab" href="alltext.html">alltext</a>
       </div>
       <section class="history-section">
-        <div class="history-placeholder">
-          <h2>History</h2>
-          <p>Your recent activity will appear here.</p>
+        <div class="history-header" style="padding: 16px; border-bottom: 1px solid #e5e7eb;">
+          <h2 style="margin: 0; color: #222; font-size: 1.3rem;">Booking History</h2>
+          <p style="margin: 8px 0 0 0; color: #666; font-size: 0.9rem;">Your recent bookings and activities</p>
+        </div>
+        <div id="history-content" style="padding: 16px;">
+          <!-- History items will be loaded here -->
         </div>
       </section>
     </main>
@@ -37,5 +40,106 @@
   </div>
   <script src="main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Load and display booking history
+    function loadHistory() {
+      const historyContent = document.getElementById('history-content');
+      const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      
+      if (bookings.length === 0) {
+        historyContent.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: #666;">
+            <i class="fa-solid fa-history" style="font-size: 3rem; margin-bottom: 16px; color: #ddd;"></i>
+            <h3 style="margin: 0 0 8px 0; color: #222;">No bookings yet</h3>
+            <p style="margin: 0; font-size: 0.9rem;">Start booking services to see your history here</p>
+            <button onclick="window.location.href='allinternet.html'" style="background: #1976d2; color: #fff; border: none; border-radius: 8px; padding: 12px 24px; margin-top: 16px; cursor: pointer;">
+              Browse Services
+            </button>
+          </div>
+        `;
+        return;
+      }
+      
+      // Sort bookings by date (newest first)
+      bookings.sort((a, b) => new Date(b.date) - new Date(a.date));
+      
+      const historyHTML = bookings.map(booking => {
+        const date = new Date(booking.date);
+        const statusColor = booking.status === 'completed' ? '#4caf50' : 
+                           booking.status === 'cancelled' ? '#f44336' : '#ff9800';
+        
+        return `
+          <div style="background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; border: 1px solid #e5e7eb;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+              <div>
+                <h4 style="margin: 0 0 4px 0; color: #222; font-size: 1.1rem;">${booking.serviceName}</h4>
+                <p style="margin: 0; color: #666; font-size: 0.9rem;">${date.toLocaleDateString()} at ${date.toLocaleTimeString()}</p>
+              </div>
+              <span style="background: ${statusColor}; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; text-transform: capitalize;">
+                ${booking.status}
+              </span>
+            </div>
+            
+            ${booking.pickup ? `<div style="margin-bottom: 4px; font-size: 0.9rem;"><strong>From:</strong> ${booking.pickup}</div>` : ''}
+            ${booking.drop ? `<div style="margin-bottom: 4px; font-size: 0.9rem;"><strong>To:</strong> ${booking.drop}</div>` : ''}
+            ${booking.location ? `<div style="margin-bottom: 4px; font-size: 0.9rem;"><strong>Location:</strong> ${booking.location}</div>` : ''}
+            ${booking.price ? `<div style="margin-bottom: 8px; font-size: 0.9rem;"><strong>Price:</strong> ₹${booking.price}</div>` : ''}
+            
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+              <button onclick="viewBookingDetails(${booking.id})" style="background: #1976d2; color: #fff; border: none; border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; cursor: pointer;">
+                View Details
+              </button>
+              ${booking.status === 'pending' ? `
+                <button onclick="cancelBooking(${booking.id})" style="background: #f44336; color: #fff; border: none; border-radius: 6px; padding: 8px 12px; font-size: 0.8rem; cursor: pointer;">
+                  Cancel
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      historyContent.innerHTML = historyHTML;
+    }
+    
+    function viewBookingDetails(bookingId) {
+      const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+      const booking = bookings.find(b => b.id === bookingId);
+      
+      if (booking) {
+        let details = `Booking ID: ${booking.id}\nService: ${booking.serviceName}\nStatus: ${booking.status}\nDate: ${new Date(booking.date).toLocaleString()}`;
+        
+        if (booking.formData) {
+          Object.entries(booking.formData).forEach(([key, value]) => {
+            if (value) details += `\n${key}: ${value}`;
+          });
+        }
+        
+        if (booking.pickup) details += `\nPickup: ${booking.pickup}`;
+        if (booking.drop) details += `\nDrop: ${booking.drop}`;
+        if (booking.location) details += `\nLocation: ${booking.location}`;
+        if (booking.price) details += `\nPrice: ₹${booking.price}`;
+        
+        alert(details);
+      }
+    }
+    
+    function cancelBooking(bookingId) {
+      if (confirm('Are you sure you want to cancel this booking?')) {
+        let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+        const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+        
+        if (bookingIndex !== -1) {
+          bookings[bookingIndex].status = 'cancelled';
+          localStorage.setItem('bookings', JSON.stringify(bookings));
+          loadHistory(); // Reload the history
+          alert('Booking cancelled successfully!');
+        }
+      }
+    }
+    
+    // Load history when page loads
+    document.addEventListener('DOMContentLoaded', loadHistory);
+  </script>
 </body>
 </html> 

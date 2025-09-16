@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Booking | Allin Platform</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Minimal inline styles for layout, use style.css for main styling */
+    .booking-container {
+      max-width: 400px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px 16px 32px 16px;
+      margin-top: 32px;
+    }
+    .booking-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #222;
+    }
+    .booking-label {
+      font-weight: 500;
+      margin-top: 16px;
+      margin-bottom: 4px;
+      display: block;
+    }
+    .booking-input, .booking-textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      background: #f9f9f9;
+    }
+    .booking-btn {
+      width: 100%;
+      background: #222e50;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .booking-btn:hover {
+      background: #1a2340;
+    }
+    .booking-desc {
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-container">
+    <div class="booking-title" id="serviceTitle">Book a Service</div>
+    <div class="booking-desc" id="serviceDesc"></div>
+    <form id="bookingForm">
+      <!-- Dynamic fields will be injected here -->
+      <div id="dynamicFields"></div>
+      <button type="submit" class="booking-btn">Book Now</button>
+    </form>
+  </div>
+  <script src="main.js"></script>
+  <script src="booking.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Demo map functionality
+    function initMap() {
+      const mapElement = document.getElementById('booking-map');
+      if (mapElement) {
+        // In a real app, this would initialize Google Maps
+        // For demo purposes, we'll show a placeholder
+        mapElement.innerHTML = `
+          <div style="text-align: center; color: #666; padding: 20px;">
+            <i class="fa-solid fa-map-location-dot" style="font-size: 2rem; margin-bottom: 8px; color: #1976d2;"></i>
+            <div style="font-weight: 600; margin-bottom: 8px;">Interactive Map</div>
+            <div style="font-size: 0.9rem; margin-bottom: 12px;">Google Maps integration</div>
+            <div style="background: #f0f0f0; border-radius: 4px; padding: 8px; font-size: 0.8rem;">
+              <div>📍 Current Location: Delhi, India</div>
+              <div>🎯 Service providers nearby: 12 available</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+    
+    // Initialize map when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initMap, 500);
+    });
+  </script>
+</body>
+</html> 
